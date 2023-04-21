@@ -5,10 +5,10 @@ import Exchange from './exchange.js';
 
 // buisness logic
 
-async function getExchange(countryCode){
-  const response = await Exchange.getExchange(countryCode);
+async function getExchange(amount,countryCode1,countryCode2){
+  const response = await Exchange.getExchange(countryCode1);
   if(response.result === "success"){
-    printExchangeElements(response);
+    printExchangeElements(amount,response,countryCode2);
   } else {
     printError(response);
   }
@@ -24,8 +24,10 @@ function printError(apiResponse){
 
 function handleFormSubmission(event){
   event.preventDefault();
-  const countCode = document.querySelector("#amount").value;
-  getExchange(countCode);
+  const amount = document.querySelector("amount").value
+  const countCode1 = document.querySelector("#code1").value;
+  const countCode2 = document.querySelector("#code2").value;
+  getExchange(amount,countCode1,countCode2);
 }
 
 // ui logic
