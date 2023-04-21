@@ -5,7 +5,7 @@ import Exchange from './exchange.js';
 
 // buisness logic
 
-async function getExchange(amount,countryCode1,countryCode2){
+async function getExchange(amount,countryCode1,countryCode2){  
   const response = await Exchange.getExchange(countryCode1);
   if(response.result === "success"){
     const exchangedAmount = findAmount(amount,response,countryCode2);
@@ -53,14 +53,26 @@ function printErrorInvalidCode(countCode1,check1,countCode2,check2){
   if(!check2){
     valid2 = "NOT ";
   }
-  document.querySelector("#results").innerText =`Your first input "${countCode1}" is ${valid1}a valid response. Your second input "${countCode2}" is ${valid2}a valid response. Please refer to the Wikipedia page and give the correct 3 character country code. `;
+  document.querySelector("#results").innerText =`Your first input "${countCode1}" is ${valid1}a valid Country Code. Your second input "${countCode2}" is ${valid2}a valid Country Code. Please refer to the Wikipedia page and give the correct 3 character Country Code. `;
 }
+
 
 function handleFormSubmission(event){
   event.preventDefault();
-  const amount = parseInt(document.querySelector("#amount").value);
-  const countCode1 = (document.querySelector("#code1").value).toUpperCase();
-  const countCode2 = (document.querySelector("#code2").value).toUpperCase();
+  let amount = parseInt(document.querySelector("#amount").value);
+  let countCode1 = (document.querySelector("#code1").value).toUpperCase();
+  let countCode2 = document.querySelector("#code2").value;
+  console.log(countCode1,amount,countCode2);
+  if(isNaN(amount)){
+    amount = 5;
+  }
+  if(!countCode1){
+    countCode1 = "USD"
+  }
+  if(!countCode2){
+    countCode2 = "AUD"
+  }
+  console.log(countCode1,amount,countCode2);
   const check1 = checkCode(countCode1);
   const check2 = checkCode(countCode2);
   if(check1 && check2){
