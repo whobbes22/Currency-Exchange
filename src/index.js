@@ -24,9 +24,9 @@ function checkCode(code){
 // ui logic
 
 
-function printExchangeElements(apiResponse){
-  document.querySelector("#results").innerText = `conversion to: ${apiResponse["conversion_rates"]}`;
-  console.log(apiResponse["conversion_rates"]);
+function printExchangeElements(amount,apiResponse,countryCode2){
+  document.querySelector("#results").innerText = `conversion to: ${apiResponse.conversion_rates.AUD}`;
+  console.log(amount,countryCode2);
   console.log(apiResponse["conversion_rates"].USD);
 }
 
