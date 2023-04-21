@@ -9,9 +9,9 @@ async function getExchange(amount,countryCode1,countryCode2){
   const response = await Exchange.getExchange(countryCode1);
   if(response.result === "success"){
     const exchangedAmount = findAmount(amount,response,countryCode2);
-    console.log("exchanged amount",exchangedAmount);
     printExchangeElements(amount,exchangedAmount,response,countryCode2);
   } else {
+
     printErrorAPI(response);
   }
 }
@@ -19,7 +19,6 @@ async function getExchange(amount,countryCode1,countryCode2){
 function findAmount(amount,response,countryCode2){
   const apiKeys = Object.keys(response.conversion_rates);
   const apiValues = Object.values(response.conversion_rates);
-
   return amount * apiValues[apiKeys.indexOf(countryCode2)];
 }
 
@@ -28,20 +27,15 @@ function checkCode(code){
 
   return acceptedCodes.includes(code.toUpperCase());
 }
-
 // ui logic
 
-// converting 3 usd to AUD - > 5
 // 3 usd converted to new currency -> 4 aud
-
 function printExchangeElements(amount,exchangedAmount,apiResponse,countryCode2){
   document.querySelector("#results").innerText = `${amount} ${apiResponse["base_code"]} to new currency -> ${exchangedAmount} ${countryCode2}`;
-  console.log(amount,exchangedAmount,countryCode2);
-  console.log(apiResponse["conversion_rates"].USD);
 }
 
 function printErrorAPI(apiResponse){
-  document.querySelector("#results").innerText = `Error... ${apiResponse["error-type"]}`;
+  document.querySelector("#results").innerText = `There was an error in the response: ${apiResponse}`;
 }
 
 function printErrorInvalidCode(countCode1,check1,countCode2,check2){
@@ -56,23 +50,20 @@ function printErrorInvalidCode(countCode1,check1,countCode2,check2){
   document.querySelector("#results").innerText =`Your first input "${countCode1}" is ${valid1}a valid Country Code. Your second input "${countCode2}" is ${valid2}a valid Country Code. Please refer to the Wikipedia page and give the correct 3 character Country Code. `;
 }
 
-
 function handleFormSubmission(event){
   event.preventDefault();
   let amount = parseInt(document.querySelector("#amount").value);
   let countCode1 = (document.querySelector("#code1").value).toUpperCase();
   let countCode2 = document.querySelector("#code2").value;
-  console.log(countCode1,amount,countCode2);
   if(isNaN(amount)){
     amount = 5;
   }
   if(!countCode1){
-    countCode1 = "USD"
+    countCode1 = "USD";
   }
   if(!countCode2){
-    countCode2 = "AUD"
+    countCode2 = "AUD";
   }
-  console.log(countCode1,amount,countCode2);
   const check1 = checkCode(countCode1);
   const check2 = checkCode(countCode2);
   if(check1 && check2){
@@ -81,7 +72,6 @@ function handleFormSubmission(event){
     printErrorInvalidCode(countCode1,check1,countCode2,check2);
   }
 }
-
 
 window.addEventListener("load", function(){
   document.querySelector("form").addEventListener("submit",handleFormSubmission);

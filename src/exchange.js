@@ -5,7 +5,7 @@ export default class Exchange {
       const jsoinifiedResponse = await response.json();
       if(!response.ok){
         //error message
-        throw new Error(`${response.status}`);
+        throw new Error(`${response.status} ${response.statusText} ${jsoinifiedResponse["error-type"]}`);
       }
       return jsoinifiedResponse;
     } catch(error) {
