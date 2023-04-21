@@ -21,16 +21,16 @@ _This is a web application that allows users a user to input an initial amount o
 
 * _Clone this repository to desired location_
 * _Open your terminal_
-* _Navigate to root directory of "Bike Index API" with your terminal_
-* _Create new file named ".env"_
-* _Click on this link or paste it into your web browser "https://www.exchangerate-api.com/"_
-* _Click on the "Get Free Key" button at the top of the web page_
+* _Navigate to root directory of ```'Bike Index API'``` with your terminal_
+* _Create new file named ```'.env'```_
+* _Click on this link or paste it into your web browser https://www.exchangerate-api.com/_
+* _Click on the ```'Get Free Key'``` button at the top of the web page_
 * _Create an account by entering an email and password_
 * _Copy the API key_
-* _In the .env file enter this line "API_KEY={xxxx}" replace {xxxx} with the copied API key_
-* _In terminal run command 'npm install'_
-* _In terminal run command 'npm run build'_
-* _In terminal run command 'npm run start'_
+* _In the .env file enter this line ```'API_KEY={xxxx}'``` replace ```'{xxxx}'``` with the copied API key_
+* _In terminal run command ```'npm install'```_
+* _In terminal run command ```'npm run build'```_
+* _In terminal run command ```'npm run start'```_
 
 ## Known Bugs
 
