@@ -8,9 +8,9 @@ export default class Exchange {
         throw new Error(`${response.status}`);
       }
       return jsoinifiedResponse;
-      } catch(error) {
-        return error;
-      }
+    } catch(error) {
+      return error;
+    }
   }
 
 }

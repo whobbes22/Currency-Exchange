@@ -14,8 +14,18 @@ async function getExchange(countryCode){
   }
 }
 
-function handleFormSubmission(event){
+function printExchangeElements(apiResponse){
+  document.querySelector("#results").innerText = `conversion to: ${apiResponse.conversion_rates.AUD}`;
+}
 
+function printError(apiResponse){
+  document.querySelector("#results").innerText = `Error... ${apiResponse}`;
+}
+
+function handleFormSubmission(event){
+  event.preventDefault();
+  const countCode = document.querySelector("#amount").value;
+  getExchange(countCode);
 }
 
 // ui logic
