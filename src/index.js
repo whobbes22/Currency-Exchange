@@ -1,11 +1,22 @@
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/styles.css';
-import CurrencyExchange from './exchange';
+import Exchange from './exchange.js';
 
 // buisness logic
 
+async function getExchange(countryCode){
+  const response = await Exchange.getExchange(countryCode);
+  if(response.result === "success"){
+    printExchangeElements(response);
+  } else {
+    printError(response);
+  }
+}
 
+function handleFormSubmission(event){
+
+}
 
 // ui logic
 
