@@ -9,6 +9,7 @@ async function getExchange(amount,countryCode1,countryCode2){
   const response = await Exchange.getExchange(countryCode1);
   if(response.result === "success"){
     const exchangedAmount = findAmount(amount,response,countryCode2);
+    console.log(exchangedAmount,amount)
     printExchangeElements(amount,exchangedAmount,response,countryCode2);
   } else {
 
@@ -54,7 +55,7 @@ function handleFormSubmission(event){
   event.preventDefault();
   let amount = parseInt(document.querySelector("#amount").value);
   let countCode1 = (document.querySelector("#code1").value).toUpperCase();
-  let countCode2 = document.querySelector("#code2").value;
+  let countCode2 = (document.querySelector("#code2").value).toUpperCase();
   if(isNaN(amount)){
     amount = 5;
   }
