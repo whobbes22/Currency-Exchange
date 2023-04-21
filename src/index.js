@@ -8,12 +8,20 @@ import Exchange from './exchange.js';
 async function getExchange(amount,countryCode1,countryCode2){
   const response = await Exchange.getExchange(countryCode1);
   if(response.result === "success"){
-    printExchangeElements(amount,response,countryCode2);
+    const exchangedAmount = findAmount(amount,response,countryCode2);
+    console.log("exchanged amount",exchangedAmount);
+    printExchangeElements(amount,exchangedAmount,response,countryCode2);
   } else {
     printErrorAPI(response);
   }
 }
 
+function findAmount(amount,response,countryCode2){
+  const apiKeys = Object.keys(response.conversion_rates);
+  const apiValues = Object.values(response.conversion_rates);
+
+  return amount * apiValues[apiKeys.indexOf(countryCode2)];
+}
 
 function checkCode(code){
   const acceptedCodes = ["USD","AED","AFN","ALL","AMD","ANG","AOA","ARS","AUD","AWG","AZN","BAM","BBD","BDT","BGN","BHD","BIF","BMD","BND","BOB","BRL","BSD","BTN","BWP","BYN","BZD","CAD","CDF","CHF","CLP","CNY","COP","CRC","CUP","CVE","CZK","DJF","DKK","DOP","DZD","EGP","ERN","ETB","EUR","FJD","FKP","FOK","GBP","GEL","GGP","GHS","GIP","GMD","GNF","GTQ","GYD","HKD","HNL","HRK","HTG","HUF","IDR", "ILS","IMP","INR","IQD","IRR", "ISK","JEP","JMD","JOD","JPY","KES","KGS","KHR","KID","KMF","KRW","KWD","KYD","KZT","LAK", "LBP", "LKR","LRD","LSL","LYD","MAD","MDL","MGA","MKD","MMK","MNT","MOP","MRU","MUR","MVR","MWK","MXN","MYR","MZN","NAD","NGN","NIO","NOK","NPR","NZD","OMR","PAB","PEN","PGK","PHP","PKR","PLN","PYG","QAR","RON","RSD","RUB","RWF","SAR","SBD","SCR","SDG","SEK","SGD","SHP","SLE","SLL", "SOS","SRD","SSP","STN","SYP","SZL","THB","TJS","TMT","TND","TOP","TRY","TTD","TVD","TWD","TZS","UAH","UGX","UYU","UZS", "VES","VND", "VUV","WST","XAF","XCD","XDR","XOF","XPF","YER","ZAR","ZMW","ZWL"];
@@ -23,10 +31,12 @@ function checkCode(code){
 
 // ui logic
 
+// converting 3 usd to AUD - > 5
+// 3 usd converted to new currency -> 4 aud
 
-function printExchangeElements(amount,apiResponse,countryCode2){
-  document.querySelector("#results").innerText = `conversion to: ${apiResponse.conversion_rates.AUD}`;
-  console.log(amount,countryCode2);
+function printExchangeElements(amount,exchangedAmount,apiResponse,countryCode2){
+  document.querySelector("#results").innerText = `${amount} ${apiResponse["base_code"]} to new currency -> ${exchangedAmount} ${countryCode2}`;
+  console.log(amount,exchangedAmount,countryCode2);
   console.log(apiResponse["conversion_rates"].USD);
 }
 
@@ -48,9 +58,9 @@ function printErrorInvalidCode(countCode1,check1,countCode2,check2){
 
 function handleFormSubmission(event){
   event.preventDefault();
-  const amount = document.querySelector("#amount").value;
-  const countCode1 = document.querySelector("#code1").value;
-  const countCode2 = document.querySelector("#code2").value;
+  const amount = parseInt(document.querySelector("#amount").value);
+  const countCode1 = (document.querySelector("#code1").value).toUpperCase();
+  const countCode2 = (document.querySelector("#code2").value).toUpperCase();
   const check1 = checkCode(countCode1);
   const check2 = checkCode(countCode2);
   if(check1 && check2){
