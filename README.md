@@ -21,7 +21,7 @@ _This is a web application that allows users a user to input an initial amount o
 
 * _Clone this repository to desired location_
 * _Open your terminal_
-* _Navigate to root directory of ```Bike Index API``` with your terminal_
+* _Navigate to root directory of the cloned repository with your terminal_
 * _Create new file named ```.env```_
 * _Click on this link or paste it into your web browser https://www.exchangerate-api.com/_
 * _Click on the ```Get Free Key``` button at the top of the web page_
